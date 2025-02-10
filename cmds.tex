@@ -1,0 +1,155 @@
+\renewcommand{\ttdefault}{pxtt}
+
+\ifacmccs
+  % Delete \URL
+\else
+  \newcommand{\URL}{\url}
+\fi
+
+\newcommand{\cc}[1]{\mbox{\smaller[0.5]\texttt{#1}}}
+
+% enable the below for ACM camera ready
+%\clubpenalty=10000
+%\widowpenalty=10000
+%\renewcommand*{\bibfont}{\raggedright}
+
+%\linespread{1.2}
+
+\fvset{fontsize=\scriptsize,xleftmargin=8pt,numbers=left,numbersep=5pt}
+
+\input{code/fmt}
+\newcommand{\figrule}{\hrule width \hsize height .33pt}
+\newcommand{\coderule}{\vspace{-0.5em}\figrule\vspace{0.2em}}
+
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+\setlength{\jot}{0pt}
+
+\def\Snospace~{\S{}}
+\renewcommand*\sectionautorefname{\Snospace}
+\def\sectionautorefname{\Snospace}
+\def\subsectionautorefname{\Snospace}
+\def\subsubsectionautorefname{\Snospace}
+\def\chapterautorefname{\Snospace}
+%\renewcommand{\figurename}{Fig.}
+%\def\figureautorefname{\figurename}
+\newcommand{\subfigureautorefname}{\figureautorefname}
+
+%\numberwithin{equation}{section}
+\newcommand{\yes}{Y}
+\newcommand{\no}{}
+
+% sema
+\newcommand{\shl}{\ \cc{<}\cc{<}\ }
+\newcommand{\shr}{\ \cc{>}\cc{>}\ }
+\newcommand{\x}{$\times$\xspace}
+
+\if 0
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\dbltopfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.9}
+\renewcommand{\dblfloatpagefraction}{0.9}
+\setcounter{topnumber}{10}
+\setcounter{bottomnumber}{10}
+\setcounter{totalnumber}{10}
+\setcounter{dbltopnumber}{10}
+\fi
+
+\newif\ifdraft\drafttrue
+\newif\ifnotes\notestrue
+\ifdraft\else\notesfalse\fi
+
+% hide comments
+% \renewcommand{\TK}[1]{\ignorespaces}
+% \renewcommand{\XXX}[1]{\ignorespaces}
+% \renewcommand{\TODO}[1]{\ignorespaces}
+
+%% Ensure ligatures (e.g., ``fine official flag'') can be copy/pasted from PDF.
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
+% include macros
+\newcommand{\includepdf}[1]{
+  \includegraphics[width=\columnwidth]{#1}
+}
+\newcommand{\includeplot}[1]{
+  \resizebox{\columnwidth}{!}{\input{#1}}
+}
+
+% list
+\newcommand{\squishlist}{
+\begin{itemize}[noitemsep,nolistsep]
+  \setlength{\itemsep}{-0pt}
+}
+\newcommand{\squishend}{
+  \end{itemize}
+}
+
+%%
+%% NOTE.
+%%  to use circled number in caption, use
+%%   (e.g., \protect\WC{1})
+%%
+\usepackage{tikz}
+\newcommand*\WC[1]{%
+\begin{tikzpicture}[baseline=(C.base)]
+\node[draw,circle,inner sep=0.2pt](C) {#1};
+\end{tikzpicture}}
+
+\newcommand*\BC[1]{%
+\begin{tikzpicture}[baseline=(C.base)]
+\node[draw,circle,fill=black,inner sep=0.2pt](C) {\textcolor{white}{#1}};
+\end{tikzpicture}}
+
+\usepackage{xstring}
+\newcommand{\PP}[1]{
+\vspace{2px}
+\noindent{\bf \IfEndWith{#1}{.}{#1}{#1.}}
+}
+
+\newcommand{\PN}[1]{
+\vspace{2px}
+\noindent{\bf #1}
+}
+
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\newcommand{\V}{\checkmark}
+\newcommand{\X}{{\footnotesize $\times$}\xspace}
+\renewcommand{\O}{\phantom{0}}
+
+%% units
+\newcommand{\B}{\,\text{B}\xspace}
+\newcommand{\K}{\,\text{K}\xspace}
+\newcommand{\M}{\,\text{M}\xspace}
+\newcommand{\T}{\,\text{T}\xspace}
+\newcommand{\KB}{\,\text{KB}\xspace}
+\newcommand{\MB}{\,\text{MB}\xspace}
+\newcommand{\GB}{\,\text{GB}\xspace}
+\newcommand{\TB}{\,\text{TB}\xspace}
+
+\newcommand{\Bs}{\,\text{B/s}\xspace}
+\newcommand{\KBs}{\,\text{KB/s}\xspace}
+\newcommand{\MBs}{\,\text{MB/s}\xspace}
+\newcommand{\GBs}{\,\text{GB/s}\xspace}
+
+% boxbeg/end
+\newcommand{\boxbeg}{
+\vspace{2px}
+\noindent\begin{tabular}{|l|}\hline
+\begin{minipage}{3.2in}
+\vspace{2px}
+\noindent
+}
+
+\newcommand{\boxend}{
+\vspace{2px}
+\end{minipage}\\ \hline
+\end{tabular}
+\vspace{-10pt}
+}

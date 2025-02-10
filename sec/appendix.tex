@@ -1,0 +1,28 @@
+\newpage
+\appendix
+\onecolumn
+
+\section{Detailed Contextualization}
+\label{detailed-context}
+
+\begin{algorithm}
+  \caption{Inter-procedural Analysis}
+  \begin{algorithmic}[1]
+    \STATE CallGraph $\gets$ BuildCallGraph($Program$)
+    \STATE VisitedFuncs $\gets$ $\emptyset$
+    \STATE WorkList $\gets$ GetEntryPoints($Program$)
+
+    \WHILE{$WorkList \neq \emptyset$}
+    \STATE CurrentFunc $\gets$ WorkList.pop()
+    \IF{$CurrentFunc \notin VisitedFuncs$}
+    \STATE VisitedFuncs $\gets$ VisitedFuncs $\cup$ \{CurrentFunc\}
+    \STATE DataFlow $\gets$ AnalyzeDataFlow($CurrentFunc$)
+    \STATE CalledFuncs $\gets$ GetCalledFunctions($CurrentFunc$)
+    \STATE WorkList $\gets$ WorkList $\cup$ CalledFuncs
+    \STATE PropagateContext($CurrentFunc$, $DataFlow$)
+    \ENDIF
+    \ENDWHILE
+
+    \STATE \RETURN AnalysisResults
+  \end{algorithmic}
+\end{algorithm}

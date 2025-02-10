@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import re
+import textwrap
+
+if len(sys.argv) != 3:
+    print("[usage] %s [p.tex] [abstract.tex]" % sys.argv[0])
+    exit(0)
+
+pn_main = sys.argv[1]
+pn_abst = sys.argv[2]
+
+def uppercase_cond(value):
+    if value[0].islower():
+        return value
+    upcond = True
+    for i in range(1,len(value)):
+        if value[i].isupper():
+            upcond = False
+            break
+    if upcond:
+        return value.upper()
+    else:
+        return value
+
+def get_keywords(tex):
+    rtn = {}
+    tok = re.findall(r"\\newcommand{\\([^}]+)}{(.*)}", tex)
+    for (k, v) in tok:
+        # clean up v
+        v = v.replace("\\mbox{", "")
+        v = v.replace("\\textsc{", "")
+        v = v.replace("\\cc{", "")
+        v = v.replace("\\xspace", "")
+        v = v.replace("}", "")
+        v = v.replace("{", "")
+        v = v.replace("\\", "")
+        if k == "sys":
+            rtn[k] = uppercase_cond(v)
+        else:
+            rtn[k] = v
+    return rtn
+
+def get_sys(tex):
+    tok = re.findall(r"\\newcommand{\\sys}{\\mbox{\\textsc{([^}]*)}", tex)
+    if len(tok) == 0:
+        print("Failed to find 'sys'")
+        exit(1)
+    return tok[0]
+
+def get_keywords_inclusive(entry):
+    # collect first-level include
+    targets = [entry]
+    for l in open(entry):
+        if "\\include" in l:
+            l = l[8:].strip()
+            l = l.replace("{", "")
+            l = l.replace("}", "")
+            targets.append(l)
+
+    rtn = {}
+    for f in targets:
+        for ext in ["", ".tex"]:
+            f = f + ext
+            if os.path.exists(f):
+                rtn.update(get_keywords(open(f).read()))
+    return rtn
+
+kw = get_keywords_inclusive(pn_main)
+
+abstract = []
+for l in open(pn_abst):
+    l = l.strip()
+    if l.startswith("%"):
+        continue
+    if l.endswith("%"):
+        l = l[:-1]
+
+    if "{abstract}" in l:
+        continue
+
+    for k in sorted(kw.keys(), reverse=True):
+        l = l.replace("\\%s" % k, kw[k])
+
+    l = l.replace("\\%", "%")
+    l = l.replace("\\emph{", "")
+    l = l.replace("\\cc{", "")
+    l = l.replace("{", "")
+    l = l.replace("}", "")
+    l = l.replace("~", " ")
+    l = l.replace("\\,", " ")
+    l = l.replace("\\X", "x")
+    l = l.replace("\\&", "&")
+    l = l.replace("\\@", "")
+    l = l.replace("\\$", "$")
+    l = l.replace("---", " -- ")
+    l = l.replace("--", "-")
+    l = l.replace("``", "'")
+    l = l.replace("''", "'")
+    l = l.replace("\\ie", "i.e.")
+    l = l.replace("\\eg", "e.g.")
+    l = l.replace("\\etal", " et al.")
+    l = l.replace("\\Bs", " B/s")
+    l = l.replace("\\KBs", " KB/s")
+    l = l.replace("\\MBs", " MB/s")
+    l = l.replace("\\GBs", " GB/s")
+    l = l.replace("\\KB", " KB")
+    l = l.replace("\\MB", " MB")
+    l = l.replace("\\GB", " GB")
+    l = l.replace("\\TB", " TB")
+    l = l.replace("\\B", " B")
+    l = l.replace("\\K", " K")
+    l = l.replace("\\M", " M")
+    l = l.replace("\\T", " T")
+    l = l.replace("\\", "")
+
+    if "\\" in l:
+        print("WARN: unresolved char in", file=sys.stderr)
+        print(" > %s" % l, file=sys.stderr)
+
+    abstract.append(l)
+
+print("\n".join(abstract))

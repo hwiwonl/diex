@@ -1,0 +1,215 @@
+%% List of if statements
+% 1. Default
+\newif\ifdefault \defaultfalse
+% 2. NeurIPS
+\newif\ifneurips \neuripsfalse
+% 3. ICML
+\newif\ificml \icmlfalse
+% 4. ICLR
+\newif\ificlr \iclrfalse
+% 5. USENIX
+\newif\ifusenix \usenixfalse
+% 6. IEEE S&P
+\newif\ifieeesp \ieeespfalse
+% 7. NDSS
+\newif\ifndss \ndssfalse
+% 8. ACM CCS
+\newif\ifacmccs \acmccsfalse
+% 9. COLM
+\newif\ifcolm \colmfalse
+% 10. ACL
+\newif\ifacl \aclfalse
+
+%%%%%%%%%%%
+% Default %
+%%%%%%%%%%%
+\documentclass[11pt,letterpaper,twocolumn]{article}
+\usepackage[11pt,nocopyright]{sigmin}
+\usepackage[square,comma,numbers,sort&compress]{natbib}
+\defaulttrue
+
+%%%%%%%%%%%
+% NeurIPS %
+%%%%%%%%%%%
+% \documentclass{article}
+% \usepackage{sty/neurips/template}
+% % \usepackage[final]{sty/neurips/template} % Uncomment for camera-ready version, but NOT for submission.
+% \neuripstrue
+
+%%%%%%%%
+% ICML %
+%%%%%%%%
+% \documentclass{article}
+% \usepackage{sty/icml/template}
+% % \usepackage[accepted]{sty/icml/template} % Uncomment for camera-ready version, but NOT for submission.
+
+% \icmltitlerunning{Submission and Formatting Instructions for ICML 2025}
+% \icmltrue
+
+%%%%%%%%%%
+% ICLR %
+%%%%%%%%%%
+% \documentclass{article}
+% \usepackage{sty/iclr/template}
+% % \iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+% \iclrtrue
+
+%%%%%%%%%%
+% USENIX %
+%%%%%%%%%%
+% \documentclass[letterpaper,twocolumn,10pt]{article}
+% \usepackage{sty/usenix}
+% \usepackage[square,comma,numbers,sort&compress]{natbib}
+% \usenixtrue
+
+%%%%%%%%%%%%
+% IEEE S&P %
+%%%%%%%%%%%%
+% \documentclass[conference,compsoc]{IEEEtran}
+% \ieeesptrue
+
+%%%%%%%%
+% NDSS %
+%%%%%%%%
+% \documentclass[conference]{IEEEtran}
+% \pagestyle{plain}
+% \ndsstrue
+
+%%%%%%%%%%%
+% ACM CCS %
+%%%%%%%%%%%
+% \documentclass[sigconf,anonymous]{sty/acmart}
+
+% \fancyhf{} % Remove fancy page headers
+% \fancyhead[C]{Anonymous submission \#9999 to ACM CCS 2025} % TODO: replace 9999 with your paper number
+% \fancyfoot[C]{\thepage}
+
+% \setcopyright{none} % No copyright notice required for submissions
+% \acmConference[Anonymous Submission to ACM CCS 2025]{ACM Conference on Computer and Communications Security}{Due 15 May 2019}{London, TBD}
+% \acmYear{2025}
+
+% \settopmatter{printacmref=false, printccs=true, printfolios=true} % We want page numbers on submissions
+
+% \let\URL\url  % This makes \URL behave like \url when using ACM CCS template
+
+% \keywords{Computer Security}
+
+% \acmccstrue
+
+%%%%%%%%
+% COLM %
+%%%%%%%%
+% \documentclass{article} % For LaTeX2e
+% % \usepackage[submission]{sty/colm/template}
+% % \usepackage[final]{sty/colm/template} % Uncomment for camera-ready version, but NOT for submission.
+% \usepackage[preprint]{sty/colm/template} % Uncomment for preprint version.
+
+% \let\URL\url
+
+% \colmtrue
+
+%%%%%%%
+% ACL %
+%%%%%%%
+% \documentclass[11pt]{article}
+% \usepackage[review]{sty/acl/template}
+% % \usepackage[final]{sty/acl/template} % Uncomment for camera-ready version, but NOT for submission.
+% % \usepackage[preprint]{sty/acl/template} % Uncomment for preprint version.
+% \acltrue
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Then include your packages
+\input{pkgs}
+
+% Add this line to address the microtype warning
+\microtypecontext{spacing=nonfrench}
+
+\newcommand{\sys}{\mbox{\textsc{Sys}}\xspace}
+
+% ref. http://en.wikibooks.org/wiki/LaTeX/Colors
+\newcommand{\HL}[1]{\textcolor{teal}{HL: #1}} % Hwiwon
+\newcommand{\LZ}[1]{\textcolor{blue}{KK: #1}} % Lingming Zhang
+\newcommand{\YY}[1]{\textcolor{orange}{YY: #1}}
+% Add your name here for colors like brown, purple, etc.
+\newcommand{\XX}[0]{\textcolor{red}{XXX}}
+\newcommand{\XXX}[1]{\textcolor{red}{XXX: #1}}
+\newcommand{\TODO}[1]{\textcolor{Melon}{TODO: #1}}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\input{cmds}
+
+\begin{document}
+
+\ifacmccs
+\input{abstract}
+\input{hdr}
+\else
+\input{hdr}
+\input{abstract}
+\fi
+
+\input{sec/intro}
+\input{sec/design}
+\input{sec/impl}
+\input{sec/eval}
+\input{sec/relwk}
+\input{sec/conclusion}
+\input{sec/ack}
+
+% The \balance command is used to balance columns on the last page of a two-column document,
+% making them approximately equal in length.
+% \balance
+
+% Simplified bibliography section
+\ifdefault
+\bibliographystyle{plain}
+\footnotesize
+\setlength{\bibsep}{3pt}
+\bibliography{p,conf}
+\else\ifneurips
+\bibliographystyle{plain}
+\footnotesize
+\setlength{\bibsep}{3pt}
+\bibliography{p,conf}
+\else\ificml
+\bibliographystyle{sty/icml/template}
+\footnotesize
+\bibliography{p,conf}
+\else\ifusenix
+\bibliographystyle{plain}
+\footnotesize
+\setlength{\bibsep}{3pt}
+\bibliography{p,conf}
+\else\ifieeesp
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\IEEEoverridecommandlockouts
+\bibliographystyle{IEEEtranS}
+{\footnotesize
+\bibliography{p,conf}}
+\else\ifndss
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\IEEEoverridecommandlockouts
+\bibliographystyle{IEEEtranS}
+{\footnotesize
+\bibliography{p,conf}}
+\else\ifacmccs
+\bibliographystyle{sty/ACM-Reference-Format}
+\bibliography{p,conf}
+\else\ificlr
+\bibliography{p,conf}
+\bibliographystyle{sty/iclr/template}
+\else\ifcolm
+\bibliography{p,conf}
+\bibliographystyle{sty/colm/template}
+\else\ifacl
+\bibliography{p,conf}
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+\input{sec/appendix}
+
+\end{document}

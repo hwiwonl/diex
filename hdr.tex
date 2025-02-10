@@ -1,0 +1,123 @@
+\ificml
+\twocolumn[
+  \icmltitle{\sys: a paper template}
+  \icmlsetsymbol{equal}{*}
+  \begin{icmlauthorlist}
+    \icmlauthor{Firstname1 Lastname1}{equal,yyy}
+    \icmlauthor{Firstname2 Lastname2}{equal,yyy,comp}
+    \icmlauthor{Firstname3 Lastname3}{comp}
+    \icmlauthor{Firstname4 Lastname4}{sch}
+    \icmlauthor{Firstname5 Lastname5}{yyy}
+    \icmlauthor{Firstname6 Lastname6}{sch,yyy,comp}
+    \icmlauthor{Firstname7 Lastname7}{comp}
+    %\icmlauthor{}{sch}
+    \icmlauthor{Firstname8 Lastname8}{sch}
+    \icmlauthor{Firstname8 Lastname8}{yyy,comp}
+    %\icmlauthor{}{sch}
+    %\icmlauthor{}{sch}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{yyy}{Department of XXX, University of YYY, Location, Country}
+  \icmlaffiliation{comp}{Company Name, Location, Country}
+  \icmlaffiliation{sch}{School of ZZZ, Institute of WWW, Location, Country}
+
+  \icmlcorrespondingauthor{Firstname1 Lastname1}{first1.last1@xxx.edu}
+  \icmlcorrespondingauthor{Firstname2 Lastname2}{first2.last2@www.uk}
+
+  % You may provide any keywords that you
+  % find helpful for describing your paper; these are used to populate
+  % the "keywords" metadata in the PDF but will not be shown in the document
+  \icmlkeywords{Machine Learning, ICML}
+
+  \vskip 0.3in
+]
+%\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
+\else
+\title{\sys: a paper template}
+
+% when 'make draft'
+\ifdefined\DRAFT
+\pagestyle{fancyplain}
+\lhead{Rev.~\therev}
+\rhead{\thedate}
+\cfoot{\thepage\ of \pageref{LastPage}}
+\fi
+
+%% Blind
+% \author{Paper \#000}
+
+%% Author
+\author{
+  Isaac Newton$^\dagger$\;
+  Albert Einstein$^\ddagger$\;
+  Marie Curie$^\ast$\;
+  James Clerk Maxwell$^\dagger$\;
+  \\
+  Richard Feynman$^\dagger$\;
+  \\\\
+  \emph{$^\dagger$  Trinity College}, \\
+  \emph{$^\ddagger$ University of Zurich},
+  \emph{$^\ast$    University of Paris}
+}
+
+%% NeurIPS author example
+
+% \author{%
+%   David S.~Hippocampus\thanks{Use footnote for providing further information
+%     about author (webpage, alternative address)---\emph{not} for acknowledging
+%     funding agencies.} \\
+%   Department of Computer Science\\
+%   Cranberry-Lemon University\\
+%   Pittsburgh, PA 15213 \\
+%   \texttt{hippo@cs.cranberry-lemon.edu} \\
+%   % examples of more authors
+%   % \And
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+%   % \AND
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+%   % \And
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+%   % \And
+%   % Coauthor \\
+%   % Affiliation \\
+%   % Address \\
+%   % \texttt{email} \\
+% }
+
+%% ICLR author example
+
+% \author{Antiquus S.~Hippocampus, Natalia Cerebro \& Amelie P. Amygdale \thanks{ Use footnote for providing further information
+% about author (webpage, alternative address)---\emph{not} for acknowledging
+% funding agencies.  Funding acknowledgements go at the end of the paper.} \\
+% Department of Computer Science\\
+% Cranberry-Lemon University\\
+% Pittsburgh, PA 15213, USA \\
+% \texttt{\{hippo,brain,jen\}@cs.cranberry-lemon.edu} \\
+% \And
+% Ji Q. Ren \& Yevgeny LeNet \\
+% Department of Computational Neuroscience \\
+% University of the Witwatersrand \\
+% Joburg, South Africa \\
+% \texttt{\{robot,net\}@wits.ac.za} \\
+% \AND
+% Coauthor \\
+% Affiliation \\
+% Address \\
+% \texttt{email}
+% }
+
+\date{}
+\maketitle
+
+\sloppy
+\fi
