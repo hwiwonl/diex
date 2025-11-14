@@ -59,25 +59,7 @@ make
 > If you are using vscode, install [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) to get a better LaTeX editing experience. In that case, you need to customize the build action in `settings.json` as follows:
 
 ```json
-{
-    // Custom LaTeX build tool configuration for LaTeX Workshop
-    "latex-workshop.latex.tools": [
-        {
-            "name": "make",
-            "command": "make",
-            "args": []
-        }
-    ],
-    // Recipe that uses the custom 'make' tool to build your LaTeX document
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "Make",
-            "tools": [
-                "make"
-            ]
-        }
-    ],
-    // Bibtex formatter
+{ // Bibtex formatter
     "latex-workshop.bibtex-fields.sort.enabled": true,
     // Enable LaTeX formatting using latexindent (instead of "none")
     "latex-workshop.formatting.latex": "tex-fmt",
@@ -89,7 +71,51 @@ make
     // Additional editor settings (optional)
     // "files.autoSave": "afterDelay",
     // "files.autoSaveDelay": 1000,
-    "latex-workshop.latex.autoBuild.run": "onSave"
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    // Define the output directory 
+    "latex-workshop.latex.outDir": "%DIR%",
+    // Set a reasonable timeout for commands
+    "latex-workshop.latex.build.timeout": 60000,
+    "latex-workshop.message.log.show": true,
+    // Add -shell-escape flag for minted package
+    "latex-workshop.latex.tools": [
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "-min-crossrefs=99",
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdflatex -> bibtex -> pdflatex -> pdflatex",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "tools": [
+                "pdflatex"
+            ]
+        }
+    ]
 }
 ```
 
